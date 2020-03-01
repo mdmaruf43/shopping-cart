@@ -25,7 +25,7 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i id="removeProduct1" class="fas fa-minus"></i></button>
+                           <button class="btn btn-default add"><i id="removeProduct1" class="fas fa-minus"></i></button>
                            <input type="text" class="form-control text-center" id="inputProduct1" value="1">
                            <button class="btn btn-default"><i id="addProduct1" class="fas fa-plus"></i></button>
                         </div>
@@ -81,73 +81,48 @@
       // Add Button Event Handler
       const addButton1 = document.getElementById("addProduct1");
       addButton1.addEventListener("click", function(){
-         const numberOfProduct = getPositiveNumber("inputProduct1");
-         const totalProductPrice = numberOfProduct * 1219;
-         document.getElementById("inputProduct1").value = numberOfProduct;
-         document.getElementById("productPrice1").innerText = totalProductPrice;
-         //document.getElementById("total").innerText = totalProductPrice;
-         var price = document.getElementsByClassName("total");
-         for(var i = 0; i < price.length; i++){
-            price[i].innerText = totalProductPrice;
-         }
+         getAllItem("inputProduct1", "productPrice1", "add" );
       })
 
       // Remove Button Event Handler
       const minusBtn1 = document.getElementById("removeProduct1");
       minusBtn1.addEventListener("click", function(){
-         const numberOfProduct = getNegativeNumber("inputProduct1", "productPrice1");
-         const productPrice = numberOfProduct * 1219;
-
-         document.getElementById("inputProduct1").value = numberOfProduct;
-         document.getElementById("productPrice1").innerText = productPrice;
-         document.getElementById("total").innerText = productPrice;
+         getAllItem("inputProduct1", "productPrice1", "remove");
       })
 
 
       // Add Another Button Event Handler
       const addButton2 = document.getElementById("addProduct2");
       addButton2.addEventListener("click", function(){
-         const numberOfProduct = getPositiveNumber("inputProduct2");
-         const productPrice = numberOfProduct * 59;
-         const subPrice = getTotalPrice("total");
-
-         document.getElementById("inputProduct2").value = numberOfProduct;
-         document.getElementById("productPrice2").innerText = productPrice;
-         document.getElementById("total").innerText = productPrice;
-
+         getAllItem("inputProduct2", "productPrice2", "add");
       })
 
 
       // Remove Another Button Event Handler
       const minusBtn2 = document.getElementById("removeProduct2");
       minusBtn2.addEventListener("click", function(){
-         const numberOfProduct = getNegativeNumber("inputProduct2");
-         const productPrice = numberOfProduct * 59;
-
-         document.getElementById("inputProduct2").value = numberOfProduct;
-         document.getElementById("productPrice2").innerText = productPrice;
+         getAllItem("inputProduct2", "productPrice2", "remove");
       })
 
 
-      function getPositiveNumber(id){
-         const product = document.getElementById(id).value;
-         const numberOfProduct = parseFloat(product) + 1;
-         return numberOfProduct;
-      }
+      function getAllItem(id1, id2, id3){
+         const product = document.getElementById(id1).value;
+         const numberOfProduct = id3 == "add" ? parseFloat(product) + 1 : parseFloat(product) - 1;
+         const productPrice = document.getElementById(id2).innerText;
+         const productPriceAmount = parseFloat(productPrice);
+         const totalProductPrice = productPriceAmount / product;
 
-      function getNegativeNumber(id){
-         const product = document.getElementById(id).value;
-         const numberOfProduct = parseFloat(product) - 1;
-         return numberOfProduct;
-      }
-
-      function getTotalPrice(id){
-         var price = document.getElementsByClassName(id);
-         for(var i = 0; i < price.length; i++){
-            var temp = price[i].document.getElementsByClassName(id).innerText;
+         if(numberOfProduct <= 1){
+            document.getElementById(id1).value = 1;
+            document.getElementById(id2).innerText = totalProductPrice;
          }
-         return temp;
+         else{
+            document.getElementById(id1).value = numberOfProduct;
+            const newPrice = totalProductPrice * numberOfProduct;
+            document.getElementById(id2).innerText = newPrice;
+         }
       }
+
    </script>
 </body>
 
