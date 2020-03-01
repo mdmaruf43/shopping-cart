@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default"><i id="removeProduct1" class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="inputProduct1" value="1">
+                           <button class="btn btn-default"><i id="addProduct1" class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="productPrice1">1219</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default"><i id="removeProduct2" class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="inputProduct2" value="1">
+                           <button class="btn btn-default"><i id="addProduct2" class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="productPrice2">59</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                        <h5>$ <span class="total">1,278</span> </h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span class="total">1,278</span> </h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,78 @@
          </div>
       </div>
    </section>
+   <script>
+      // Add Button Event Handler
+      const addButton1 = document.getElementById("addProduct1");
+      addButton1.addEventListener("click", function(){
+         const numberOfProduct = getPositiveNumber("inputProduct1");
+         const totalProductPrice = numberOfProduct * 1219;
+         document.getElementById("inputProduct1").value = numberOfProduct;
+         document.getElementById("productPrice1").innerText = totalProductPrice;
+         //document.getElementById("total").innerText = totalProductPrice;
+         var price = document.getElementsByClassName("total");
+         for(var i = 0; i < price.length; i++){
+            price[i].innerText = totalProductPrice;
+         }
+      })
+
+      // Remove Button Event Handler
+      const minusBtn1 = document.getElementById("removeProduct1");
+      minusBtn1.addEventListener("click", function(){
+         const numberOfProduct = getNegativeNumber("inputProduct1", "productPrice1");
+         const productPrice = numberOfProduct * 1219;
+
+         document.getElementById("inputProduct1").value = numberOfProduct;
+         document.getElementById("productPrice1").innerText = productPrice;
+         document.getElementById("total").innerText = productPrice;
+      })
+
+
+      // Add Another Button Event Handler
+      const addButton2 = document.getElementById("addProduct2");
+      addButton2.addEventListener("click", function(){
+         const numberOfProduct = getPositiveNumber("inputProduct2");
+         const productPrice = numberOfProduct * 59;
+         const subPrice = getTotalPrice("total");
+
+         document.getElementById("inputProduct2").value = numberOfProduct;
+         document.getElementById("productPrice2").innerText = productPrice;
+         document.getElementById("total").innerText = productPrice;
+
+      })
+
+
+      // Remove Another Button Event Handler
+      const minusBtn2 = document.getElementById("removeProduct2");
+      minusBtn2.addEventListener("click", function(){
+         const numberOfProduct = getNegativeNumber("inputProduct2");
+         const productPrice = numberOfProduct * 59;
+
+         document.getElementById("inputProduct2").value = numberOfProduct;
+         document.getElementById("productPrice2").innerText = productPrice;
+      })
+
+
+      function getPositiveNumber(id){
+         const product = document.getElementById(id).value;
+         const numberOfProduct = parseFloat(product) + 1;
+         return numberOfProduct;
+      }
+
+      function getNegativeNumber(id){
+         const product = document.getElementById(id).value;
+         const numberOfProduct = parseFloat(product) - 1;
+         return numberOfProduct;
+      }
+
+      function getTotalPrice(id){
+         var price = document.getElementsByClassName(id);
+         for(var i = 0; i < price.length; i++){
+            var temp = price[i].document.getElementsByClassName(id).innerText;
+         }
+         return temp;
+      }
+   </script>
 </body>
 
 </html>
